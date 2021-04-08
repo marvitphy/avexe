@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Document</title>
+    <style>
+        body {
+            height: 100%;
+            background: rgb(255, 169, 41);
+            background: linear-gradient(90deg, rgba(255, 169, 41, 1) 0%, rgba(242, 145, 1, 1) 100%);
+            font-family: avexe;
+        }
+        
+         :root {
+            --cor-padrao: rgb(255, 169, 41);
+        }
+        
+        .container-top {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            margin-top: 5px;
+            z-index: -1000;
+            overflow: none;
+            color: white;
+            text-align: left;
+            font-family: avexe;
+        }
+        
+        .container-top :is(.title) {
+            font-size: 27px;
+        }
+        
+        .container-top :is(.cidade) {
+            float: right;
+            margin-top: 12px;
+            margin-right: 15px;
+            font-size: 12px;
+        }
+        
+        .container-central {
+            width: 100%;
+            height: 640px;
+            background: white;
+            margin-top: 250px;
+            border-radius: 30px 30px 0px 0px;
+            padding: 20px;
+            background: #F3F3F3;
+        }
+        
+        .pesquisar {
+            font-family: 'Roboto', sans-serif;
+            font-size: 17px;
+            padding: 10px 20px 10px 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.18);
+            font-family: avexe;
+            z-index: 1100;
+        }
+        
+        .categoria {
+            width: 55px;
+            height: 53px;
+            border-radius: 50%;
+            background: white;
+            margin-right: 15px;
+            color: black;
+        }
+        
+        .scrolling-wrapper {
+            padding-bottom: 7px;
+            margin-left: 10px;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            white-space: nowrap;
+            text-align: center;
+            margin-top: 20px;
+            font-family: avexe;
+        }
+        
+        .cat {
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .cat>span {
+            margin-top: 5px;
+            margin-left: -16px;
+        }
+        
+        .cat-child {
+            margin-top: 13px;
+            margin-left: px;
+            font-size: 25px;
+            color: var(--cor-padrao);
+        }
+        
+        .container-central>.title {
+            font-family: avexe-md;
+            font-size: 18px;
+        }
+        
+        input {
+            background: none;
+            font-family: avexe-md;
+            color: white;
+            border-collapse: collapse;
+            border: none;
+        }
+        
+        input::placeholder {
+            color: white;
+        }
+        
+        input:focus {
+            border: none;
+            border-collapse: collapse;
+            outline: none;
+        }
+        
+        .container-central>.ver-mais {
+            float: right;
+            font-family: avexe-md;
+            color: var(--cor-padrao);
+        }
+        
+        .scrolling-wrapper-2 {
+            overflow-x: scroll;
+            overflow-y: hidden;
+            white-space: nowrap;
+            scroll-snap-type: x mandatory;
+            padding-bottom: 12px;
+        }
+        
+        .card-2 {
+            margin-top: 15px;
+            scroll-snap-align: start;
+            display: inline-block;
+            width: 151px;
+            height: 166px;
+            background: white;
+            border-radius: 13px;
+            padding: 8px 10px 10px 10px;
+            margin-right: 10px;
+        }
+        
+        .card-3 {
+            margin-top: 15px;
+            scroll-snap-align: start;
+            display: inline-block;
+            width: 242px;
+            height: 102px;
+            background: white;
+            border-radius: 13px;
+            padding: 8px 10px 10px 10px;
+            margin-right: 10px;
+        }
+        
+        .card-image {
+            height: 112px;
+            width: 100%;
+            border-radius: 11px;
+            background-position: center center;
+            background-size: cover;
+        }
+        
+        .card-image-2 {
+            height: 79px;
+            width: 86px;
+            border-radius: 11px;
+            background-position: center center;
+            background-size: cover;
+        }
+        
+        .card-title {
+            font-size: 12px;
+            font-family: avexe-b;
+            margin-top: 8px;
+        }
+        
+        .card-subtitle {
+            color: #8F8F8F;
+            font-size: 12px;
+            margin-top: -16px;
+            font-family: avexe-b;
+        }
+        
+        .card-title-2 {
+            font-size: 12px;
+            font-family: avexe-b;
+        }
+        
+        .card-subtitle-2 {
+            color: #8F8F8F;
+            font-size: 12px;
+            font-family: avexe-md;
+        }
+        
+        .infos {
+            font-family: avexe-md;
+        }
+        
+        .infos>.nome {
+            color: black;
+        }
+        
+        .infos>.descricao {
+            color: gray;
+        }
+        
+        .container-pesquisa {
+            z-index: 100;
+            position: fixed;
+            width: 100%;
+            top: 150px;
+            padding-left: 15px;
+            padding-right: 15px
+        }
+        
+        .pesquisa-div {
+            width: 100%;
+            height: 300px;
+            overflow-y: auto;
+            box-shadow: 0px 15px 20px rgb(156, 156, 156);
+            background: white;
+            padding: 20px;
+            border-radius: 12px
+        }
+        
+        .pesquisa-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            background-image: url('https://static1.sorrisologia.com.br/articles/6/85/86/@/18924-por-que-ir-ao-dentista-e-como-encontrar-slider_medias_mobile-1.jpg');
+            background-size: cover;
+            background-position: center center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-top">
+
+        <div style="padding-top: 30px; padding-left: 15px;">
+            <span class="title">Descubra</span>
+            <span class="cidade"><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;Balsas-MA</span>
+        </div>
+
+        <div style="padding-left: 15px; padding-right: 15px;">
+            <div class="pesquisar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16.3" height="16.233" viewBox="0 0 16.3 16.233">
+                    <path id="Icon_ionic-ios-search" data-name="Icon ionic-ios-search" d="M19.542,18.569l-3.688-3.73a6.337,6.337,0,1,0-.962.974l3.659,3.7a.684.684,0,0,0,.966.025A.689.689,0,0,0,19.542,18.569Zm-8.668-2.7A5,5,0,1,1,14.413,14.4,4.973,4.973,0,0,1,10.874,15.867Z" transform="translate(-4 -3.993)" fill="#fff" stroke="#fff" stroke-width="1"/>
+                  </svg>
+                <form action="" class="form" style="display: inline-block;"><input type="text" class="str-pesquisa" placeholder="O que deseja encontrar?"></form>
+            </div>
+        </div>
+
+        <div class="scrolling-wrapper">
+            <div class="cat">
+                <div class="categoria">
+                    <i class="cat-child fas fa-mug-hot"></i>
+                </div><span>Comer</span>
+            </div>
+            <div class="cat">
+                <div class="categoria">
+                    <i class="cat-child fas fa-video"></i>
+                </div><span>Cinema</span>
+            </div>
+            <div class="cat">
+                <div class="categoria">
+                    <i class="cat-child fas fa-briefcase-medical"></i>
+                </div><span>Farmácia</span>
+            </div>
+            <div class="cat">
+                <div class="categoria">
+                    <i class="cat-child fas fa-basketball-ball"></i>
+                </div><span>Esporte</span>
+            </div>
+            <div class="cat">
+                <div class="categoria">
+                    <i class="cat-child fas fa-dumbbell"></i>
+                </div><span>Academia</span>
+            </div>
+            <div class="cat">
+                <div class="categoria">
+                    <i class="cat-child fas fa-dumbbell"></i>
+                </div><span>Academia</span>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="container-central" style=" ">
+
+        <span class="title">Lugares Populares</span>
+
+        <span class="ver-mais">Ver Mais</span>
+
+        <div class="scrolling-wrapper-2">
+
+            <div class="card-2">
+
+                <div class="card-image" style="background-image: url('https://www.brasilcopy.com.br/images/conteudo/empresa-brasil-copy.jpg'); ">
+
+                </div>
+
+                <div class="card-title">
+                    Brasil Copy
+                </div>
+                <div class="card-subtitle">
+                    Av. Tito Coelho
+                </div>
+
+            </div>
+
+            <div class="card-2">
+
+                <div class="card-image" style="background-image: url('http://s2.glbimg.com/1cUUZEDCrcxmCxsOFxIs9wh8itQ=/smart/e.glbimg.com/og/ed/f/original/2015/01/22/lazer_hotel_essenza_01.jpg'); ">
+
+                </div>
+
+                <div class="card-title">
+                    Hotel Avuzzy
+                </div>
+                <div class="card-subtitle">
+                    Rua Tiguna 2
+                </div>
+
+            </div>
+            <div class="card-2">
+
+                <div class="card-image" style="background-image: url('https://www.emporiotambo.com.br/pub/media/resized/1300x800/ves/blog/xcomo-decorar-uma-lanchonete-com-pouco-dinheiro.jpg.pagespeed.ic.yIrOpJ0OYd.jpg'); ">
+
+                </div>
+
+                <div class="card-title">
+                    Lanchonete 1
+                </div>
+                <div class="card-subtitle">
+                    Rua Guarani 5, Nazaré
+                </div>
+
+            </div>
+            <div class="card-2">
+
+                <div class="card-image" style="background-image: url('https://media-cdn.tripadvisor.com/media/photo-s/1a/bd/b8/3e/esse-cantinho-e-o-mesmo.jpg'); ">
+
+                </div>
+
+                <div class="card-title">
+                    Lanchonete 2
+                </div>
+                <div class="card-subtitle">
+                    Rua Guarani 5, Nazaré
+                </div>
+
+            </div>
+            <div class="card-2">
+
+                <div class="card-image" style="background-image: url('https://media-cdn.tripadvisor.com/media/photo-s/15/90/07/58/wielkie-otwarcie-food.jpg'); ">
+
+                </div>
+
+                <div class="card-title">
+                    Lanchonete 3
+                </div>
+                <div class="card-subtitle">
+                    Rua Guarani 5, Nazaré
+                </div>
+
+            </div>
+            <div class="card-2">
+
+                <div class="card-image" style="background-image: url('https://media-cdn.tripadvisor.com/media/photo-s/15/90/07/58/wielkie-otwarcie-food.jpg'); ">
+
+                </div>
+
+                <div class="card-title">
+                    Lanchonete 3
+                </div>
+                <div class="card-subtitle">
+                    Rua Guarani 5, Nazaré
+                </div>
+
+            </div>
+        </div>
+        <span class="title">Lugares Para Comer</span>
+
+        <span class="ver-mais">Ver Mais</span>
+
+        <div class="scrolling-wrapper-2">
+
+            <div class="card-3">
+                <div class="card-image-2 float-left" style="background-image: url('https://blog.saipos.com/wp-content/uploads/2018/10/como-montar-uma-lanchonete-pequena-SAIPOS-Ssistema-para-restaurantes.jpg'); ">
+
+                    <div class="" style="text-align: left;  margin-left:95px; margin-top: 10px;">
+                        <div class="card-title-2">
+                            Lanchonete Exemplar
+                        </div>
+                        <div class="" style=" font-size: 12px; color: gray; font-family: avexe-md;">
+                            <i class="fas fa-star"></i> 4.5 R$ 20,00
+                        </div>
+                        <div class="card-subtitle-2 mt-1">
+                            Av. Tito Coelho
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+            <div class="card-3">
+                <div class="card-image-2 float-left" style="background-image: url('https://blog.saipos.com/wp-content/uploads/2019/11/diner-4539948_1280.jpg'); ">
+
+                    <div class="" style="text-align: left;  margin-left:95px; margin-top: 10px;">
+                        <div class="card-title-2">
+                            Bzz Food
+                        </div>
+                        <div class="" style=" font-size: 12px; color: gray; font-family: avexe-md;">
+                            <i class="fas fa-star"></i> 4.5 R$ 20,00
+                        </div>
+                        <div class="card-subtitle-2 mt-1">
+                            Av. Tito Coelho
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-3">
+                <div class="card-image-2 float-left" style="background-image: url('https://blog.faleiro.com.br/wp-content/uploads/2020/07/d4194082766f2d03dfe424f10bf2e56e-780x450.jpg'); ">
+
+                    <div class="" style="text-align: left;  margin-left:95px; margin-top: 10px;">
+                        <div class="card-title-2">
+                            Carlin Coxinhas
+                        </div>
+                        <div class="" style=" font-size: 12px; color: gray; font-family: avexe-md;">
+                            <i class="fas fa-star"></i> 4.5 R$ 20,00
+                        </div>
+                        <div class="card-subtitle-2 mt-1">
+                            Av. Tito Coelho
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-3">
+                <div class="card-image-2 float-left" style="background-image: url('https://blog.faleiro.com.br/wp-content/uploads/2020/07/d4194082766f2d03dfe424f10bf2e56e-780x450.jpg'); ">
+
+                    <div class="" style="text-align: left;  margin-left:95px; margin-top: 10px;">
+                        <div class="card-title-2">
+                            Carlin Coxinhas
+                        </div>
+                        <div class="" style=" font-size: 12px; color: gray; font-family: avexe-md;">
+                            <i class="fas fa-star"></i> 4.5 R$ 20,00
+                        </div>
+                        <div class="card-subtitle-2 mt-1">
+                            Av. Tito Coelho
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <span class="title">Para Conhecer</span>
+
+        <span class="ver-mais">Ver Mais</span>
+
+        <div class="scrolling-wrapper-2">
+
+            <div class="card-3">
+                <div class="card-image-2 float-left" style="background-image: url('https://static.consolidesuamarca.com.br/data/images/balsas-ma.jpg?18092019'); ">
+
+                    <div class="" style="text-align: left;  margin-left:95px; margin-top: 10px;">
+                        <div class="card-title-2">
+                            Rio Balsas
+                        </div>
+                        <div class="" style=" font-size: 12px; color: gray; font-family: avexe-md;">
+                            <i class="fas fa-star"></i> 4.5 R$ 20,00
+                        </div>
+                        <div class="card-subtitle-2 mt-1">
+                            Bairro Buzz Lorem
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+            <div class="card-3">
+                <div class="card-image-2 float-left" style="background-image: url('https://www.ma.gov.br/agenciadenoticias/wp-content/uploads/2018/04/38e99288-3b30-4991-a34d-a66de3917565-1024x699.jpg'); ">
+
+                    <div class="" style="text-align: left;  margin-left:95px; margin-top: 10px;">
+                        <div class="card-title-2">
+                            Parque Centenário
+                        </div>
+                        <div class="" style=" font-size: 12px; color: gray; font-family: avexe-md;">
+                            <i class="fas fa-star"></i> 4.5
+                        </div>
+                        <div class="card-subtitle-2 mt-1">
+                            Potosó
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+            <div class="card-3">
+                <div class="card-image-2 float-left" style="background-image: url('https://static.consolidesuamarca.com.br/data/images/balsas-ma.jpg?18092019'); ">
+
+                    <div class="" style="text-align: left;  margin-left:95px; margin-top: 10px;">
+                        <div class="card-title-2">
+                            Rio Balsas
+                        </div>
+                        <div class="" style=" font-size: 12px; color: gray; font-family: avexe-md;">
+                            <i class="fas fa-star"></i> 4.5
+                        </div>
+                        <div class="card-subtitle-2 mt-1">
+                            Bairro Buzz Lorem
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <div class="container-pesquisa" style="display: none">
+
+        <div class="pesquisa-div categoria-div" style="">
+
+        </div>
+    </div>
+
+</body>
+
+<script>
+    $(document).ready(function() {
+        let pesquisa = $('.pesquisar').width()
+        console.log(pesquisa)
+        let body = $(document).width()
+
+        $('form').on('submit', function(e) {
+            let val = $('.str-pesquisa').val()
+            console.log(val)
+            e.preventDefault();
+        })
+
+        $('.str-pesquisa').on('input', function() {
+            let val = $(this).val()
+            $('.pesquisa-div').html('')
+            if (val != '' || val != null) {
+                $('.container-pesquisa').hide();
+            }
+            axios.get(`/empresas/${val}`)
+                .then(function(response) {
+                    // handle success
+                    $('.container-pesquisa').show();
+                    for (i in response.data[0].resultados) {
+                        console.log(response.data[0].resultados[i].nome)
+                        $('.pesquisa-div').append(`<div class="empresa-result mt-3">
+                <div class="pesquisa-img float-left mr-2" style="">
+                </div>
+                <div class="infos" style="transform: translateY(6px);">
+                    <div class="nome">${response.data[0].resultados[i].nome}</div>
+                    <div class="descricao">Descricao da Empresa</div>
+                </div>
+                <br>
+            </div>`)
+                    }
+
+
+
+                })
+                .catch(function(error) {
+                    // handle error
+                    console.log(error);
+                })
+        })
+    })
+</script>
+
+</html>

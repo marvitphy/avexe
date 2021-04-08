@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Document</title>
+    <style>
+        body {
+            height: 100%;
+            font-family: avexe;
+            background: black;
+        }
+        
+         :root {
+            --cor-padrao: rgb(255, 169, 41);
+        }
+        
+        .container-top :is(.title) {
+            font-size: 27px;
+        }
+        
+        .container-top :is(.cidade) {
+            float: right;
+            margin-top: 2px;
+            margin-right: 15px;
+            font-size: 24px;
+        }
+        
+        .container-central {
+            width: 100%;
+            height: 750px;
+            background: white;
+            margin-top: 180px;
+            border-radius: 30px 30px 0px 0px;
+            padding: 20px;
+            background: #fff;
+        }
+        
+        .pesquisar {
+            font-family: 'Roboto', sans-serif;
+            font-size: 17px;
+            padding: 10px 20px 10px 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.18);
+            font-family: avexe;
+            z-index: 1100;
+        }
+        
+        .categoria {
+            width: 55px;
+            height: 53px;
+            border-radius: 50%;
+            background: white;
+            margin-right: 15px;
+            color: black;
+        }
+        
+        .scrolling-wrapper {
+            padding-bottom: 7px;
+            margin-left: 10px;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            white-space: nowrap;
+            text-align: center;
+            margin-top: 20px;
+            font-family: avexe;
+        }
+        
+        .cat {
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .cat>span {
+            margin-top: 5px;
+            margin-left: -16px;
+        }
+        
+        .cat-child {
+            margin-top: 13px;
+            margin-left: px;
+            font-size: 25px;
+            color: var(--cor-padrao);
+        }
+        
+        .container-central>.title {
+            font-family: avexe-md;
+            font-size: 18px;
+        }
+        
+        input {
+            background: none;
+            font-family: avexe-md;
+            color: white;
+            border-collapse: collapse;
+            border: none;
+        }
+        
+        input::placeholder {
+            color: white;
+        }
+        
+        input:focus {
+            border: none;
+            border-collapse: collapse;
+            outline: none;
+        }
+        
+        .container-central>.ver-mais {
+            float: right;
+            font-family: avexe-md;
+            color: var(--cor-padrao);
+        }
+        
+        .scrolling-wrapper-2 {
+            margin-top: -12px;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            white-space: nowrap;
+            scroll-snap-type: x mandatory;
+            height: 150px;
+            width: 100%;
+        }
+        
+        .card-2 {
+            margin-top: 15px;
+            scroll-snap-align: start;
+            display: inline-block;
+            width: 151px;
+            height: 166px;
+            background: white;
+            border-radius: 13px;
+            padding: 8px 10px 10px 10px;
+            margin-right: 5px;
+        }
+        
+        .card-3 {
+            margin-top: 15px;
+            scroll-snap-align: start;
+            display: inline-block;
+            width: 242px;
+            height: 102px;
+            background: white;
+            border-radius: 13px;
+            padding: 8px 10px 10px 10px;
+            margin-right: 10px;
+        }
+        
+        .card-image {
+            height: 112px;
+            width: 100%;
+            border-radius: 11px;
+            background-position: center center;
+            background-size: cover;
+        }
+        
+        .card-image-2 {
+            height: 79px;
+            width: 86px;
+            border-radius: 11px;
+            background-position: center center;
+            background-size: cover;
+        }
+        
+        .card-title {
+            font-size: 12px;
+            font-family: avexe-b;
+            margin-top: 8px;
+        }
+        
+        .card-subtitle {
+            color: #8F8F8F;
+            font-size: 12px;
+            margin-top: -16px;
+            font-family: avexe-b;
+        }
+        
+        .card-title-2 {
+            font-size: 12px;
+            font-family: avexe-b;
+        }
+        
+        .card-subtitle-2 {
+            color: #8F8F8F;
+            font-size: 12px;
+            font-family: avexe-md;
+        }
+        
+        .infos {
+            font-family: avexe-md;
+        }
+        
+        .infos>.nome {
+            color: black;
+        }
+        
+        .infos>.descricao {
+            color: gray;
+        }
+        
+        .container-pesquisa {
+            z-index: 100;
+            position: fixed;
+            width: 100%;
+            top: 150px;
+            padding-left: 15px;
+            padding-right: 15px
+        }
+        
+        .pesquisa-div {
+            width: 100%;
+            height: 300px;
+            overflow-y: auto;
+            box-shadow: 0px 15px 20px rgb(156, 156, 156);
+            background: white;
+            padding: 20px;
+            border-radius: 12px
+        }
+        
+        .pesquisa-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            background-image: url('https://static1.sorrisologia.com.br/articles/6/85/86/@/18924-por-que-ir-ao-dentista-e-como-encontrar-slider_medias_mobile-1.jpg');
+            background-size: cover;
+            background-position: center center;
+        }
+        
+        .functions {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+        }
+        
+        .item-functions {
+            width: auto;
+            flex: 1;
+            text-align: center;
+            font-weight: bold;
+            background: var(--cor-padrao);
+            color: white;
+        }
+        
+        .container-top {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://i.pinimg.com/originals/e2/ae/c3/e2aec30124eb94c41532635cb06bd880.jpg');
+            background-repeat: no-repeat;
+            background-size: 100%;
+            z-index: -10000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-top">
+        <div class="" style="transform: translateY(-28px); z-index: -1000; position: absolute;">
+
+            <span style="width: 700px; transform: translateX(-200px); position: absolute; z-index: -1400; background: rgb(63, 63, 63); height: 50px; filter: blur(1.4rem);"></span>
+            <span style="width: 700px; transform: translateX(-200px); position: absolute; z-index: -1400; background: rgba(0, 0, 0, 0.5); height: 65px; filter: blur(1.4rem);"></span>
+        </div>
+        <div class="p-3" style="font-size: 22px;">
+            <span style="color: #fff; float: left"><i class="fas fa-chevron-left"></i></span>
+            <span style="color: #fff; float: right"><i class="fas fa-crosshairs"></i></span>
+        </div>
+    </div>
+
+    <div class="container-central" style=" ">
+        <span class="title mt-2" style="font-size: 20px;">Restaurante Teste</span>
+        <div style="font-size: 12px;">
+            <span>4.3</span>
+            <i class="fas fa-star" style="font-size: 12px; transform: translateY(-2px); color: var(--cor-padrao)"></i> <span>+200 Avaliações</span>
+
+        </div>
+        <hr class="mt-2 mb-1">
+        <div style="font-family: avexe; font-size: 13px; color: rgb(95, 95, 95);">A ENGESAN iniciou suas atividades em Março de 1999 na cidade de São Paulo, numa época de muita turbulência na economia nacional... <span style="color: var(--cor-padrao); font-weight: bold;">Ver Mais</span></div>
+
+        <hr class="mt-3 mb-2">
+        <div class="title mt-2">
+            <span>Como Chegar? <span style=" font-size: 14px !important; background: var(--cor-padrao); color: white; border-radius: 10px; padding: 3px 6px 3px 6px;">Ver No Mapa <i class="fas fa-crosshairs"></i></span></span>
+        </div>
+        <div style="margin-top: 6px; margin-bottom:5px; font-family: avexe; font-size: 13px; color: rgb(95, 95, 95);">
+            Av. Catulo, Nº 433, Bairro: Sorem Lorem
+        </div>
+        <div class="title mt-3">
+            Galeria
+        </div>
+        <div class="scrolling-wrapper-2">
+            <div class="card-2">
+                <div class="card-image" style="background-image: url('https://www.brasilcopy.com.br/images/conteudo/empresa-brasil-copy.jpg'); ">
+                </div>
+            </div>
+            <div class="card-2">
+                <div class="card-image" style="background-image: url('http://s2.glbimg.com/1cUUZEDCrcxmCxsOFxIs9wh8itQ=/smart/e.glbimg.com/og/ed/f/original/2015/01/22/lazer_hotel_essenza_01.jpg'); ">
+                </div>
+            </div>
+            <div class="card-2">
+                <div class="card-image" style="background-image: url('https://www.emporiotambo.com.br/pub/media/resized/1300x800/ves/blog/xcomo-decorar-uma-lanchonete-com-pouco-dinheiro.jpg.pagespeed.ic.yIrOpJ0OYd.jpg'); ">
+                </div>
+            </div>
+            <div class="card-2">
+
+                <div class="card-image" style="background-image: url('https://media-cdn.tripadvisor.com/media/photo-s/1a/bd/b8/3e/esse-cantinho-e-o-mesmo.jpg'); ">
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Contatos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <div class="modal-body text-center">
+                    <div>
+                        <span style="width: 100px;  background: var(--cor-padrao); color: white; padding: 4px 6px 4px 6px; border-radius: 15px;"> <span>Whatsapp <i class="fab fa-whatsapp"></i> </span>
+                    </div>
+
+                    <div class="mt-2">
+                        <span style="width: 100px;  background: var(--cor-padrao); color: white; padding: 4px 6px 4px 6px; border-radius: 15px;"> <span>Ligar <i class="fas fa-phone"></i> </span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="fixed-bottom  " style="font-size: 15px; height: 50px; width: 100%; background: var(--cor-padrao);">
+        <div class="functions" style="width: 100%; margin-top: 12px ;">
+            <span class="item-functions" data-toggle="modal" data-target="#exampleModal">Contatos <i class="fas fa-phone"></i></span>
+            <span class="item-functions">Como Chegar <i class="fas fa-map-marker-alt"></i></span>
+            <span class="item-functions">Catálogo <i class="fas fa-clipboard-list"></i></span>
+        </div>
+    </div>
+
+
+</body>
+
+<script>
+    $(document).ready(function() {
+        let pesquisa = $('.pesquisar').width()
+        console.log(pesquisa)
+        let body = $(document).width()
+
+        $('form').on('submit', function(e) {
+            let val = $('.str-pesquisa').val()
+            console.log(val)
+            e.preventDefault();
+        })
+
+        $('.str-pesquisa').on('input', function() {
+            let val = $(this).val()
+            $('.pesquisa-div').html('')
+            if (val != '' || val != null) {
+                $('.container-pesquisa').hide();
+            }
+            axios.get(`/empresas/${val}`)
+                .then(function(response) {
+                    // handle success
+                    $('.container-pesquisa').show();
+                    for (i in response.data[0].resultados) {
+                        console.log(response.data[0].resultados[i].nome)
+                        $('.pesquisa-div').append(`<div class="empresa-result mt-3">
+                <div class="pesquisa-img float-left mr-2" style="">
+                </div>
+                <div class="infos" style="transform: translateY(6px);">
+                    <div class="nome">${response.data[0].resultados[i].nome}</div>
+                    <div class="descricao">Descricao da Empresa</div>
+                </div>
+                <br>
+            </div>`)
+                    }
+
+
+
+                })
+                .catch(function(error) {
+                    // handle error
+                    console.log(error);
+                })
+        })
+    })
+</script>
+
+</html>
